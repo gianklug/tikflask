@@ -66,39 +66,24 @@
 
     <main role="main">
 
-      <section class="jumbotron text-center">
-        <div class="container">
-          <!-- circle profile picture -->
-          <img src="{{ user.image }}" class="rounded-circle" alt="Profile picture" width="140" height="140">
-          <br>
-          <h1 class="jumbotron-heading">@{{ user.username }}</h1>
-          <p class="lead text-muted">{{ user.bio }}</p>
-          <p>
-          <a href="https://tiktok.com/@{{ user.username }}" class="btn btn-danger btn-outline my-2">View on TikTok</a>
-          </p>
-        </div>
-      </section>
 
       <div class="album py-5 bg-light">
         <div class="container">
           <div class="row">
-          {% for video in videos %}
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="card-img-top" src="{{ video.banner }}" alt="Video banner">
+                <img class="card-img-top" src="{{ video.thumbnail_url }}" alt="Video banner">
                 <div class="card-body">
-                  <p class="card-text">{{ video.description }}</p>
+                  <p class="card-text">{{ video.title }}</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="submit" class="btn btn-sm btn-outline-danger" onclick="window.location.href='{{ video.url }}';">View on TikTok</button>
                       <button type="submit" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='/download?url={{ video.url }}';">View .mp4</button>
-                      <button type="submit" class="btn btn-sm btn-outline-success" onclick="window.location.href='/share?v={{ video.url }}';">Share</button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          {% endfor %}
           </div>
         </div>
       </div>

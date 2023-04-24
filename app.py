@@ -85,10 +85,11 @@ def index():
     return render_template("index.html", videos=get_videos(), user=get_user_info())
 
 
-@app.route("/download", methods=["POST"])
+@app.route("/download")
 def download_url():
-    url = request.form.get("url")
+    url = request.args.get("url")
     r = requests.post("https://snaptik.io/download/parse-url", data={"url": url}).json()
+    print(url)
     while not r["code"] == 3:
         time.sleep(1)
         r = requests.post(
@@ -96,6 +97,20 @@ def download_url():
         ).json()
 
     return redirect(r["url"])
+
+@app.route("/share")
+def share():
+    video_url = request.args.get("v")
+    # nothing to share
+    if not video_url:
+        return redirect("/")
+    # no tiktok url
+    if not video_url.startswith("https://www.tiktok.com"):
+        return redirect("/")
+    # get video data
+    data = requests.get(f"https://www.tiktok.com/oembed?url={video_url}").json()
+    return render_template("share.html", video=data, user=get_user_info(), url=video_url)
+
 
 
 if __name__ == "__main__":
