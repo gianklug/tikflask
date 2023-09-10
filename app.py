@@ -27,7 +27,7 @@ class Video:
 
     def get_url(self):
         return (
-            self.data.find("div", {"class": "tiktok-yz6ijl-DivWrapper"})
+            self.data.find("div", {"class": "tiktok-1s72ajp-DivWrapper"})
             .find("a")
             .get("href")
         )
